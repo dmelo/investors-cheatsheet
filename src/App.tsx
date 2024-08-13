@@ -1,6 +1,11 @@
 import React from 'react';
 import './App.css';
 
+function todayPlusNDays(n: number) {
+  let today = new Date();
+  return new Date(today.getTime() + 1000 * 3600 * 24 * n).toLocaleDateString('pt-BR');
+}
+
 function App() {
   let today = new Date();
 
@@ -8,30 +13,34 @@ function App() {
     {
       "period": "Até 180",
       "aliquot": "22,5%",
-      "date": today.toLocaleDateString('pt-BR')
+      "date_start": todayPlusNDays(0),
+      "date_end": todayPlusNDays(180),
     },
     {
       "period": "181 a 360",
       "aliquot": "20,0%",
-      "date": (new Date(today.getTime() + 1000 * 3600 * 24 * 181)).toLocaleDateString('pt-BR')
+      "date_start": todayPlusNDays(181),
+      "date_end": todayPlusNDays(360),
     },
     {
       "period": "361 a 720",
       "aliquot": "17,5%",
-      "date": (new Date(today.getTime() + 1000 * 3600 * 24 * 361)).toLocaleDateString('pt-BR')
+      "date_start": todayPlusNDays(361),
+      "date_end": todayPlusNDays(720),
     },
     {
       "period": "A partir de 721",
       "aliquot": "15,0%",
-      "date": (new Date(today.getTime() + 1000 * 3600 * 24 * 721)).toLocaleDateString('pt-BR')
+      "date_start": todayPlusNDays(721),
+      "date_end": "--",
     },
   ];
 
   return (
     <div className="App">
-      <h1 className="underline font-bold">Investor's Cheatsheet</h1>
-      <h2>Tabela Regressiva de Imposto de Renda CDB</h2>
-      <table className="hover:table-fixed">
+      <h1 className="text-4xl">Investor's Cheatsheet</h1>
+      <h2 className="text-2xl">Tabela Regressiva de Imposto de Renda CDB</h2>
+      <table className="table">
           <thead>         
             <tr>
               <th>Período (dias a partir da aplicacão)</th>
@@ -45,7 +54,7 @@ function App() {
                 <tr key={index} className="green">
                   <td>{item.period}</td>
                   <td>{item.aliquot}</td>
-                  <td>{item.date}</td>
+                  <td>{item.date_start} a {item.date_end}</td>
                 </tr>
               );
             })}
