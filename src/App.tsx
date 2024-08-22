@@ -1,12 +1,12 @@
 import React from 'react';
-import {CDBTable} from './components/CDBTable';
+import RegressiveTaxTable from './components/RegressiveTaxTable';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <h1 className="text-4xl">Investor's Cheatsheet</h1>
-      <CDBTable />
+      <RegressiveTaxTable />
     </div>
 
   );

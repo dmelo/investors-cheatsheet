@@ -9,7 +9,7 @@ type CDBTableProps = {
     // Define props here
 };
 
-export const CDBTable: React.FC<CDBTableProps> = () => {
+const RegressiveTaxTable: React.FC<CDBTableProps> = () => {
   let cdbData = [
     {
       "period": "Até 180",
@@ -40,7 +40,7 @@ export const CDBTable: React.FC<CDBTableProps> = () => {
     return (
 
     <div className="border-solid border-2 border-black">
-    <h2 className="text-2xl">Tabela Regressiva de Imposto de Renda CDB</h2>
+    <h2 className="text-2xl">Tabela Regressiva de Imposto de Renda</h2>
     <table className="table">
         <thead>         
             <tr>
@@ -65,3 +65,5 @@ export const CDBTable: React.FC<CDBTableProps> = () => {
     </div>
     );
 };
+
+export default RegressiveTaxTable;
