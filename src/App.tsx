@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <h1 className="text-4xl">Investor's Cheatsheet</h1>
       <RegressiveTaxTable/>
-      <ScenarioSimulation/>
+      <ScenarioSimulation ipca={4.5} cdi={11.5}/>
     </div>
 
   );

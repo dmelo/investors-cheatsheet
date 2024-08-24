@@ -1,7 +1,36 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 type ScenarioSimulationProps = {
+    ipca: number;
+    cdi: number;
 };
+
+type ScenarioSimulationResults = {
+    grossValue: number;
+    grossPercentage: number;
+    incomeTax: number;
+    incomeTaxPercentage: number;
+    netValue: number;
+    netPercentage: number;
+};
+
+function yearlyPercentageToMonthlyDecimal(yearlyPercentage: number): number {
+    return Math.pow(1.0 + (yearlyPercentage / 100.0), 1.0 / 12.0) - 1.0;
+}
+
+function calculateResults(investment: number, index: string, yieldValue: number, dueDate: string, yieldTiming: string, taxType: string): ScenarioSimulationResults {
+    const monthlyYieldDecimal: number = yearlyPercentageToMonthlyDecimal(yieldValue);
+    const grossValue: number = investment * Math.pow(1.0 + monthlyYieldDecimal, 12);
+
+    return {
+        grossValue: grossValue,
+        grossPercentage: 0.0,
+        incomeTax: 0.0,
+        incomeTaxPercentage: 0.0,
+        netValue: 0.0,
+        netPercentage: 0.0,
+    };
+}
 
 const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
     const [investment, setInvestment] = React.useState<number>(0.0);
@@ -10,17 +39,15 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
     const [dueDate, setDueDate] = React.useState<string>('');
     const [yieldTiming, setYieldTiming] = React.useState<string>('all-at-the-end');
     const [taxType, setTaxType] = React.useState<string>('regressive');
+    const [results, setResults] = React.useState<ScenarioSimulationResults | null>(null);
+
+    useEffect(() => {
+        console.log(investment, index, yieldValue, dueDate, yieldTiming, taxType);
+        setResults(calculateResults(investment, index, yieldValue, dueDate, yieldTiming, taxType));
+    }, [investment, index, yieldValue, dueDate, yieldTiming, taxType]);
 
     return (
         <div className="w-1/2 border-solid border-2 border-black m-2">
-            {/* <ul>
-                <li>Investment: {investment}</li>
-                <li>Index: {index}</li>
-                <li>Yield: {yieldValue}</li>
-                <li>Due Date: {dueDate}</li>
-                <li>Yield Timing: {yieldTiming}</li>
-                <li>Tax Type: {taxType}</li>
-            </ul> */}
             <h2 className="text-2xl">Simulação de Cenário</h2>
             <form className="w-full">
 
@@ -121,12 +148,45 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
 
             </form>
 
-            <h3>Resultados</h3>
-            <ul>
-                <li>Valor Bruto: R$ 0,00</li>
-                <li>Imposto de Renda: R$ 0,00</li>
-                <li>Valor Líquido: R$ 0,00</li>
-            </ul>
+            {results && (
+                <>
+                    <h3>Resultados</h3>
+                    <table className="table">
+                        <thead>
+                            <tr>
+                                <th>Descrição</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Valor Bruto</td>
+                                <td>R$ {results.grossValue.toFixed(2)}</td>
+                            </tr>
+                            <tr>
+                                <td>Percentual Bruto</td>
+                                <td>{results.grossPercentage.toFixed(2)}%</td>
+                            </tr>
+                            <tr>
+                                <td>Imposto de Renda</td>
+                                <td>R$ {results.incomeTax.toFixed(2)}</td>
+                            </tr>
+                            <tr>
+                                <td>Percentual Imposto de Renda</td>
+                                <td>{results.incomeTaxPercentage.toFixed(2)}%</td>
+                            </tr>
+                            <tr>
+                                <td>Valor Líquido</td>
+                                <td>R$ {results.netValue.toFixed(2)}</td>
+                            </tr>
+                            <tr>
+                                <td>Percentual Líquido</td>
+                                <td>{results.netPercentage.toFixed(2)}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </>
+            )}
         </div>
     );
 };
