@@ -5,7 +5,18 @@ type ScenarioSimulationProps = {
     cdi: number;
 };
 
-type ScenarioSimulationResults = {
+type ScenarioSimulationIn = {
+    investment: number;
+    index: string;
+    yieldValue: number;
+    dueDate: string;
+    yieldTiming: string;
+    taxType: string;
+    ipca: number;
+    cdi: number;
+};
+
+type ScenarioSimulationOut = {
     grossValue: number;
     grossPercentage: number;
     incomeTax: number;
@@ -18,13 +29,38 @@ function yearlyPercentageToMonthlyDecimal(yearlyPercentage: number): number {
     return Math.pow(1.0 + (yearlyPercentage / 100.0), 1.0 / 12.0) - 1.0;
 }
 
-function calculateResults(investment: number, index: string, yieldValue: number, dueDate: string, yieldTiming: string, taxType: string): ScenarioSimulationResults {
-    const monthlyYieldDecimal: number = yearlyPercentageToMonthlyDecimal(yieldValue);
-    const grossValue: number = investment * Math.pow(1.0 + monthlyYieldDecimal, 12);
+function monthDiff(d1: Date, d2: Date): number  {
+    let months;
+    months = (d2.getFullYear() - d1.getFullYear()) * 12;
+    months -= d1.getMonth();
+    months += d2.getMonth();
+    return months <= 0 ? 0 : months;
+  }
+
+function calculateResults(data: ScenarioSimulationIn): ScenarioSimulationOut {
+    let totalYearlyPercentage: number = data.yieldValue;
+    switch (data.index) {
+        case 'ipca-plus':
+            totalYearlyPercentage = data.yieldValue + data.ipca;
+            break;
+        case 'cdi-plus':
+            totalYearlyPercentage = data.yieldValue + data.cdi;
+            break;
+        case 'cdi':
+            totalYearlyPercentage = data.yieldValue * data.cdi / 100.0;
+            break;
+        default:
+            totalYearlyPercentage = data.yieldValue;
+    }
+
+    const monthlyYieldDecimal: number = yearlyPercentageToMonthlyDecimal(totalYearlyPercentage);
+    const qtyMonths: number = monthDiff(new Date(), new Date(data.dueDate));
+    const grossDecimal: number = Math.pow(1.0 + monthlyYieldDecimal, qtyMonths) - 1.0;
+    const grossValue: number = data.investment * (1 + grossDecimal);
 
     return {
         grossValue: grossValue,
-        grossPercentage: 0.0,
+        grossPercentage: grossDecimal * 100.0,
         incomeTax: 0.0,
         incomeTaxPercentage: 0.0,
         netValue: 0.0,
@@ -39,12 +75,25 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
     const [dueDate, setDueDate] = React.useState<string>('');
     const [yieldTiming, setYieldTiming] = React.useState<string>('all-at-the-end');
     const [taxType, setTaxType] = React.useState<string>('regressive');
-    const [results, setResults] = React.useState<ScenarioSimulationResults | null>(null);
+    const [results, setResults] = React.useState<ScenarioSimulationOut | null>(null);
 
     useEffect(() => {
         console.log(investment, index, yieldValue, dueDate, yieldTiming, taxType);
-        setResults(calculateResults(investment, index, yieldValue, dueDate, yieldTiming, taxType));
-    }, [investment, index, yieldValue, dueDate, yieldTiming, taxType]);
+        setResults(
+            calculateResults(
+                {
+                    investment: investment,
+                    index: index,
+                    yieldValue: yieldValue,
+                    dueDate: dueDate,
+                    yieldTiming: yieldTiming,
+                    taxType: taxType,
+                    ipca: props.ipca,
+                    cdi: props.cdi
+                }
+            )
+        );
+    }, [investment, index, yieldValue, dueDate, yieldTiming, taxType, props.ipca, props.cdi]);
 
     return (
         <div className="w-1/2 border-solid border-2 border-black m-2">
@@ -87,7 +136,7 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                 <div className="md:flex md:items-center m-6">
                     <div className="md:w-1/3">
                         <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-yield">
-                            Rendimento Anual
+                            Rendimento Anual (%)
                         </label>
                     </div>
                     <div className="md:w-2/3">
@@ -103,7 +152,7 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                 <div className="md:flex md:items-center m-6">
                     <div className="md:w-1/3">
                         <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-due-date">
-                            Vencimento
+                            Data de Vencimento
                         </label>
                     </div>
                     <div className="md:w-2/3">
