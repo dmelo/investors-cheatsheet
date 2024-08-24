@@ -21,8 +21,6 @@ function calcPrefixedValue(monthlyPercentage: number, taxPercentage: number) {
 }
 
 type RegressiveTaxTableProps = {
-  monthlyTargetProfit: number;
-    // Define props here
 };
 
 const RegressiveTaxTable: React.FC<RegressiveTaxTableProps> = (props) => {
@@ -32,34 +30,30 @@ const RegressiveTaxTable: React.FC<RegressiveTaxTableProps> = (props) => {
       "aliquot": 22.5,
       "date_start": todayPlusNDays(0),
       "date_end": todayPlusNDays(180),
-      "prefixed": calcPrefixedValue(props.monthlyTargetProfit, 22.5)
     },
     {
       "period": "181 a 360",
       "aliquot": 20.0,
       "date_start": todayPlusNDays(181),
       "date_end": todayPlusNDays(360),
-      "prefixed": calcPrefixedValue(props.monthlyTargetProfit, 20.0)
     },
     {
       "period": "361 a 720",
       "aliquot": 17.5,
       "date_start": todayPlusNDays(361),
       "date_end": todayPlusNDays(720),
-      "prefixed": calcPrefixedValue(props.monthlyTargetProfit, 17.5)
     },
     {
       "period": "A partir de 721",
       "aliquot": 15.0,
       "date_start": todayPlusNDays(721),
       "date_end": "--",
-      "prefixed": calcPrefixedValue(props.monthlyTargetProfit, 15.0)
     },
   ];
 
     return (
 
-    <div className="border-solid border-2 border-black">
+    <div className="border-solid border-2 border-black m-2">
     <h2 className="text-2xl">Tabela Regressiva de Imposto de Renda</h2>
     <table className="table">
         <thead>         
@@ -67,7 +61,6 @@ const RegressiveTaxTable: React.FC<RegressiveTaxTableProps> = (props) => {
             <th>Período (dias a partir da aplicacão)</th>
             <th>Alíquota (%)</th>
             <th>Data correspondente a partir de Hoje</th>
-            <th>Prefixado (%)</th>
             </tr>
         </thead>
         <tbody>
@@ -77,7 +70,6 @@ const RegressiveTaxTable: React.FC<RegressiveTaxTableProps> = (props) => {
                 <td>{item.period}</td>
                 <td>{item.aliquot.toFixed(1)}</td>
                 <td>{item.date_start} a {item.date_end}</td>
-                <td>{item.prefixed.toFixed(2)}</td>
                 </tr>
             );
             })}
