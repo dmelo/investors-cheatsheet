@@ -20,9 +20,13 @@ type ScenarioSimulationOut = {
     grossValue: number;
     grossPercentage: number;
     incomeTax: number;
+    incomeTaxOverYieldPercentage: number;
     incomeTaxPercentage: number;
     netValue: number;
     netPercentage: number;
+    netMonthlyPercentage: number;
+    ipcaMonthlyPercentage: number;
+    netMonthlyPercentageOverIpca: number;
 };
 
 function yearlyPercentageToMonthlyDecimal(yearlyPercentage: number): number {
@@ -35,7 +39,25 @@ function monthDiff(d1: Date, d2: Date): number  {
     months -= d1.getMonth();
     months += d2.getMonth();
     return months <= 0 ? 0 : months;
-  }
+}
+
+function calculateTax(taxType: string, dueDate: string): number {
+    if (taxType === 'exempt') {
+        return 0.0;
+    }
+
+    const daysLeft: number = Math.floor(((new Date(dueDate)).valueOf() - (new Date()).valueOf()) / (1000 * 3600 * 24));
+
+    if (daysLeft > 720) {
+        return 0.15;
+    } else if (daysLeft > 360) {
+        return 0.175;
+    } else if (daysLeft > 180) {
+        return 0.20;
+    } else {
+        return 0.225;
+    }
+}
 
 function calculateResults(data: ScenarioSimulationIn): ScenarioSimulationOut {
     let totalYearlyPercentage: number = data.yieldValue;
@@ -57,14 +79,24 @@ function calculateResults(data: ScenarioSimulationIn): ScenarioSimulationOut {
     const qtyMonths: number = monthDiff(new Date(), new Date(data.dueDate));
     const grossDecimal: number = Math.pow(1.0 + monthlyYieldDecimal, qtyMonths) - 1.0;
     const grossValue: number = data.investment * (1 + grossDecimal);
+    const incomeTaxOverYieldDecimal: number = calculateTax(data.taxType, data.dueDate);
+    const taxDecimal: number = grossDecimal * incomeTaxOverYieldDecimal;
+    const incomeTax: number = taxDecimal * data.investment;
+    const netMonthlyDecimal: number = Math.pow(1 + grossDecimal - taxDecimal, 1.0 / qtyMonths) - 1.0;
+    const ipcaMonthlyDecimal: number = Math.pow(1 + (data.ipca / 100.0), 1.0 / 12.0) - 1.0;
+    const netMonthlyDecimalOverIpca: number = netMonthlyDecimal - ipcaMonthlyDecimal;
 
     return {
         grossValue: grossValue,
         grossPercentage: grossDecimal * 100.0,
-        incomeTax: 0.0,
-        incomeTaxPercentage: 0.0,
-        netValue: 0.0,
-        netPercentage: 0.0,
+        incomeTax: incomeTax,
+        incomeTaxOverYieldPercentage: incomeTaxOverYieldDecimal * 100.0,
+        incomeTaxPercentage: taxDecimal * 100.0,
+        netValue: grossValue - incomeTax,
+        netPercentage: (grossDecimal - taxDecimal) * 100.0,
+        netMonthlyPercentage: netMonthlyDecimal * 100.0,
+        ipcaMonthlyPercentage: ipcaMonthlyDecimal * 100.0,
+        netMonthlyPercentageOverIpca: netMonthlyDecimalOverIpca * 100.0,
     };
 }
 
@@ -221,7 +253,11 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                                 <td>R$ {results.incomeTax.toFixed(2)}</td>
                             </tr>
                             <tr>
-                                <td>Percentual Imposto de Renda</td>
+                                <td>Percentual Imposto de Renda Sobre Rendimento</td>
+                                <td>{results.incomeTaxOverYieldPercentage.toFixed(2)}%</td>
+                            </tr>
+                            <tr>
+                                <td>Percentual Imposto de Renda Sobre Valor Inestido</td>
                                 <td>{results.incomeTaxPercentage.toFixed(2)}%</td>
                             </tr>
                             <tr>
@@ -232,6 +268,19 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                                 <td>Percentual Líquido</td>
                                 <td>{results.netPercentage.toFixed(2)}%</td>
                             </tr>
+                            <tr>
+                                <td>Percental Mensal Líquido (Júros Compostos)</td>
+                                <td>{results.netMonthlyPercentage.toFixed(2)}%</td>
+                            </tr>
+                            <tr>
+                                <td>Percentual do IPCA Mensal (Júros Compostos)</td>
+                                <td>{results.ipcaMonthlyPercentage.toFixed(2)}%</td>
+                            </tr>
+                            <tr>
+                                <td>Percentual Mensal Líquido Acima do IPCA (Júros Compostos)</td>
+                                <td>{results.netMonthlyPercentageOverIpca.toFixed(2)}%</td>
+                            </tr>
+
                         </tbody>
                     </table>
                 </>
