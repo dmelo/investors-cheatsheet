@@ -53,7 +53,7 @@ const RegressiveTaxTable: React.FC<RegressiveTaxTableProps> = (props) => {
 
     return (
 
-    <div className="border-solid border-2 border-black m-2">
+    <div className="border-solid border-2 border-primary m-2">
     <h2 className="text-2xl">Tabela Regressiva de Imposto de Renda</h2>
     <table className="table">
         <thead>         
