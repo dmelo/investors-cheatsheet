@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 type ScenarioSimulationProps = {
+    title: string;
     ipca: number;
     cdi: number;
 };
@@ -129,7 +130,7 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
 
     return (
         <div className="border-solid border-2 border-primary m-2">
-            <h2 className="text-2xl">Simulação de Cenário</h2>
+            <h2 className="text-2xl">Cenário {props.title}</h2>
             <form className="w-full">
 
                  <div className="md:flex md:items-center m-6">
@@ -199,7 +200,7 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                     </div>
                 </div>
 
-                <div className="md:flex md:items-center m-6">
+                {/* <div className="md:flex md:items-center m-6">
                     <div className="md:w-2/3">
                         <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-yield-timing">
                             Pagamento dos Rendimentos
@@ -213,7 +214,7 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                         </select>
                     </div>
                 </div>
-
+ */}
                 <div className="md:flex md:items-center m-6">
                     <div className="md:w-2/3">
                         <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-tax-type">
@@ -247,7 +248,7 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                                 <td>R$ {results.grossValue.toFixed(2)}</td>
                             </tr>
                             <tr>
-                                <td>Percentual Bruto</td>
+                                <td>Rendimento Bruto</td>
                                 <td>{results.grossPercentage.toFixed(2)}%</td>
                             </tr>
                             <tr>
@@ -255,31 +256,27 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                                 <td>R$ {results.incomeTax.toFixed(2)}</td>
                             </tr>
                             <tr>
-                                <td>Percentual Imposto de Renda Sobre Rendimento</td>
+                                <td>Imposto de Renda Sobre Rendimento</td>
                                 <td>{results.incomeTaxOverYieldPercentage.toFixed(2)}%</td>
-                            </tr>
-                            <tr>
-                                <td>Percentual Imposto de Renda Sobre Valor Inestido</td>
-                                <td>{results.incomeTaxPercentage.toFixed(2)}%</td>
                             </tr>
                             <tr>
                                 <td>Valor Líquido</td>
                                 <td>R$ {results.netValue.toFixed(2)}</td>
                             </tr>
                             <tr>
-                                <td>Percentual Líquido</td>
+                                <td>Rendimento Líquido</td>
                                 <td>{results.netPercentage.toFixed(2)}%</td>
                             </tr>
                             <tr>
-                                <td>Percental Mensal Líquido (Júros Compostos)</td>
+                                <td>Rendimento Mensal Líquido (Júros Compostos)</td>
                                 <td>{results.netMonthlyPercentage.toFixed(2)}%</td>
                             </tr>
                             <tr>
-                                <td>Percentual do IPCA Mensal (Júros Compostos)</td>
+                                <td>IPCA Mensal (Júros Compostos)</td>
                                 <td>{results.ipcaMonthlyPercentage.toFixed(2)}%</td>
                             </tr>
                             <tr>
-                                <td>Percentual Mensal Líquido Acima do IPCA (Júros Compostos)</td>
+                                <td>Rendimento Mensal Líquido Acima do IPCA (Júros Compostos)</td>
                                 <td>{results.netMonthlyPercentageOverIpca.toFixed(2)}%</td>
                             </tr>
 
