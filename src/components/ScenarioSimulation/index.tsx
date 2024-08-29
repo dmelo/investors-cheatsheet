@@ -144,7 +144,7 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                             type="number"
                             min="0.00"
                             step="1000"
-                            className="border-solid border-2 border-primary" id="inline-investment"
+                            className="w-full border-solid border-2 border-primary" id="inline-investment"
                             onChange={e => setInvestment(parseFloat(e.target.value) || 0.0)}/>
 
                     </div>
@@ -177,7 +177,7 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                             type="number"
                             min="0.00"
                             step="0.1"
-                            className="border-solid border-2 border-primary"
+                            className="w-full border-solid border-2 border-primary"
                             id="inline-yield"
                             onChange={e => setYieldValue(parseFloat(e.target.value) || 0.0)}/>
 
@@ -193,7 +193,7 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                     <div className="lg:w-1/3">
                         <input
                             type="date"
-                            className=""
+                            className="w-full"
                             id="inline-due-date"
                             onChange={e => setDueDate(e.target.value)}/>
 

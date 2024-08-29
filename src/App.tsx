@@ -15,6 +15,10 @@ function App() {
         <ScenarioSimulation ipca={ipca} cdi={cdi} title="B"/>
         <ScenarioSimulation ipca={ipca} cdi={cdi} title="C"/>
       </div>
+      <footer>
+        <span>
+          Developed by <a href="https://github.com/dmelo">Diogo Melo</a></span>
+      </footer>
     </div>
 
   );
