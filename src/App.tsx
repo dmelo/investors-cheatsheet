@@ -10,7 +10,7 @@ function App() {
     <div className="App">
       <h1 className="text-4xl">Simulação de Investimento em Renda Fixa</h1>
       <RegressiveTaxTable/>
-      <div className="w-full grid grid-cols-3 content-start">
+      <div className="w-full grid grid-cols-1 md:grid-cols-3 content-start">
         <ScenarioSimulation ipca={ipca} cdi={cdi} title="A"/>
         <ScenarioSimulation ipca={ipca} cdi={cdi} title="B"/>
         <ScenarioSimulation ipca={ipca} cdi={cdi} title="C"/>

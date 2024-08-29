@@ -53,29 +53,29 @@ const RegressiveTaxTable: React.FC<RegressiveTaxTableProps> = (props) => {
 
     return (
 
-    <div className="border-solid border-2 border-primary m-2">
-    <h2 className="text-2xl">Tabela Regressiva de Imposto de Renda</h2>
-    <table className="table">
+    <div className="border-solid border-2 border-primary m-2 overflow-x-auto">
+      <h2 className="text-2xl">Tabela Regressiva de Imposto de Renda</h2>
+      <table className="table w-full">
         <thead>         
-            <tr>
-            <th>Período (dias a partir da aplicacão)</th>
-            <th>Alíquota (%)</th>
-            <th>Data correspondente a partir de Hoje</th>
-            </tr>
+          <tr>
+          <th>Período (dias a partir da aplicacão)</th>
+          <th>Alíquota (%)</th>
+          <th>Data correspondente a partir de Hoje</th>
+          </tr>
         </thead>
         <tbody>
-            {cdbData.map((item, index) => {
-            return (
-                <tr key={index} className="green">
-                <td>{item.period}</td>
-                <td>{item.aliquot.toFixed(1)}</td>
-                <td>{item.date_start} a {item.date_end}</td>
-                </tr>
-            );
-            })}
+          {cdbData.map((item, index) => {
+          return (
+              <tr key={index} className="green">
+              <td>{item.period}</td>
+              <td>{item.aliquot.toFixed(1)}</td>
+              <td>{item.date_start} a {item.date_end}</td>
+              </tr>
+          );
+          })}
         </tbody>
 
-    </table>
+      </table>
     </div>
     );
 };

@@ -133,13 +133,13 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
             <h2 className="text-2xl">Cenário {props.title}</h2>
             <form className="w-full">
 
-                 <div className="md:flex md:items-center m-6">
-                    <div className="md:w-2/3">
-                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-investment">
+                 <div className="lg:flex lg:items-center m-6">
+                    <div className="lg:w-2/3">
+                        <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-investment">
                             Valor Investido (R$)
                         </label>
                     </div>
-                    <div className="md:w-1/3">
+                    <div className="lg:w-1/3">
                         <input
                             type="number"
                             min="0.00"
@@ -150,13 +150,13 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                     </div>
                 </div>
                
-                <div className="md:flex md:items-center m-6">
-                    <div className="md:w-2/3">
-                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-index">
+                <div className="lg:flex lg:items-center m-6">
+                    <div className="lg:w-2/3">
+                        <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-index">
                             Índice
                         </label>
                     </div>
-                    <div className="md:w-1/3">
+                    <div className="lg:w-1/3">
                         <select id="inline-index" onChange={e => setIndex(e.target.value)}>
                             <option value="ipca-plus">IPCA +</option>
                             <option value="prefixed">Prefixado</option>
@@ -166,13 +166,13 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                     </div>
                 </div>
 
-                <div className="md:flex md:items-center m-6">
-                    <div className="md:w-2/3">
-                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-yield">
+                <div className="lg:flex lg:items-center m-6">
+                    <div className="lg:w-2/3">
+                        <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-yield">
                             Rendimento Anual (%)
                         </label>
                     </div>
-                    <div className="md:w-1/3">
+                    <div className="lg:w-1/3">
                         <input
                             type="number"
                             min="0.00"
@@ -184,13 +184,13 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                     </div>
                 </div>
 
-                <div className="md:flex md:items-center m-6">
-                    <div className="md:w-2/3">
-                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-due-date">
+                <div className="lg:flex lg:items-center m-6">
+                    <div className="lg:w-2/3">
+                        <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-due-date">
                             Data de Vencimento
                         </label>
                     </div>
-                    <div className="md:w-1/3">
+                    <div className="lg:w-1/3">
                         <input
                             type="date"
                             className=""
@@ -200,13 +200,13 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                     </div>
                 </div>
 
-                {/* <div className="md:flex md:items-center m-6">
-                    <div className="md:w-2/3">
-                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-yield-timing">
+                {/* <div className="lg:flex lg:items-center m-6">
+                    <div className="lg:w-2/3">
+                        <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-yield-timing">
                             Pagamento dos Rendimentos
                         </label>
                     </div>
-                    <div className="md:w-1/3">
+                    <div className="lg:w-1/3">
                         <select id="inline-yield-timing" onChange={e => setYieldTiming(e.target.value)}>
                             <option value="all-at-the-end">No Venvimento</option>
                             <option value="semiannual">Semestral</option>
@@ -215,13 +215,13 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                     </div>
                 </div>
  */}
-                <div className="md:flex md:items-center m-6">
-                    <div className="md:w-2/3">
-                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor="inline-tax-type">
+                <div className="lg:flex lg:items-center m-6">
+                    <div className="lg:w-2/3">
+                        <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-tax-type">
                             Imposto de Renda
                         </label>
                     </div>
-                    <div className="md:w-1/3">
+                    <div className="lg:w-1/3">
                         <select id="inline-tax-type" onChange={e => setTaxType(e.target.value)}>
                             <option value="regressive">Regressivo</option>
                             <option value="exempt">Isento</option>
