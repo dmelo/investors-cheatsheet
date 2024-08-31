@@ -1,10 +1,23 @@
 import RegressiveTaxTable from './components/RegressiveTaxTable';
 import ScenarioSimulation from './components/ScenarioSimulation';
+import { getIPCA } from './services/api';
 import './App.css';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [ipca, setIpca] = useState<number>(4.5);
   const cdi = 11.5;
-  const ipca = 4.5;
+
+  useEffect(() => {
+    getIPCA(
+      (data) => {
+        setIpca(data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }, []);
 
   return (
     <div className="App">
