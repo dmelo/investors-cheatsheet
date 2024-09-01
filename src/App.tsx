@@ -20,7 +20,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="App max-w-5xl mx-auto px-10">
       <h1 className="text-4xl">Simulação de Investimento em Renda Fixa</h1>
       <RegressiveTaxTable/>
       <div className="w-full grid grid-cols-1 md:grid-cols-3 content-start">
