@@ -133,7 +133,7 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
             <h2 className="text-2xl">Cenário {props.title}</h2>
             <form className="w-full">
 
-                 <div className="lg:flex lg:items-center m-6">
+                 <div className="lg:flex lg:items-center m-1">
                     <div className="lg:w-1/2">
                         <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-investment">
                             Investimento (R$)
@@ -150,7 +150,7 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                     </div>
                 </div>
                
-                <div className="lg:flex lg:items-center m-6">
+                <div className="lg:flex lg:items-center m-1">
                     <div className="lg:w-1/2">
                         <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-index">
                             Índice
@@ -166,7 +166,7 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                     </div>
                 </div>
 
-                <div className="lg:flex lg:items-center m-6">
+                <div className="lg:flex lg:items-center m-1">
                     <div className="lg:w-1/2">
                         <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-yield">
                             Rendimento Anual (%)
@@ -180,11 +180,10 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                             className="w-full border-solid border-2 border-primary"
                             id="inline-yield"
                             onChange={e => setYieldValue(parseFloat(e.target.value) || 0.0)}/>
-
                     </div>
                 </div>
 
-                <div className="lg:flex lg:items-center m-6">
+                <div className="lg:flex lg:items-center m-1">
                     <div className="lg:w-1/2">
                         <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-due-date">
                             Data de Vencimento
@@ -200,7 +199,7 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                     </div>
                 </div>
 
-                {/* <div className="lg:flex lg:items-center m-6">
+                {/* <div className="lg:flex lg:items-center m-1">
                     <div className="lg:w-2/3">
                         <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-yield-timing">
                             Pagamento dos Rendimentos
@@ -215,7 +214,7 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                     </div>
                 </div>
  */}
-                <div className="lg:flex lg:items-center m-6">
+                <div className="lg:flex lg:items-center m-1">
                     <div className="lg:w-1/2">
                         <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-tax-type">
                             Imposto de Renda
