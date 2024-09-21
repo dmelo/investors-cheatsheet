@@ -13,7 +13,7 @@ const IndexList: React.FC<IndexListProps> = (props) => {
   useEffect(() => {
     getIPCA(
       (data) => {
-        props.setIpca(data.toFixed(2));
+        props.setIpca(data);
       },
       (error) => {
         console.log(error);
@@ -22,7 +22,7 @@ const IndexList: React.FC<IndexListProps> = (props) => {
 
     getCDI(
       (data) => {
-        props.setCdi(data.toFixed(2));
+        props.setCdi(data);
       },
       (error) => {
         console.log(error);

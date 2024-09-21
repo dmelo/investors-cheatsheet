@@ -76,6 +76,8 @@ function calculateResults(data: ScenarioSimulationIn): ScenarioSimulationOut {
             totalYearlyPercentage = data.yieldValue;
     }
 
+    console.log(data);
+
     const monthlyYieldDecimal: number = yearlyPercentageToMonthlyDecimal(totalYearlyPercentage);
     const qtyMonths: number = monthDiff(new Date(), new Date(data.dueDate));
     const grossDecimal: number = Math.pow(1.0 + monthlyYieldDecimal, qtyMonths) - 1.0;

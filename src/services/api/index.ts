@@ -13,7 +13,7 @@ export const getIPCA = (
              *  "date_end": "2024-08-01"
              * }
              */
-            onSuccess(response.data.cumulative);
+            onSuccess(parseFloat(response.data.cumulative.toFixed(2)));
         })
         .catch((error) => {
             onError(error);
@@ -33,7 +33,7 @@ export const getCDI = (
              *  "date_end": "2024-08-01"
              * }
              */
-            onSuccess(response.data.cumulative);
+            onSuccess(parseFloat(response.data.cumulative.toFixed(2)));
         })
         .catch((error) => {
             onError(error);
