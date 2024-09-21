@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { getIPCA } from '../../services/api';
+import { getIPCA, getCDI } from '../../services/api';
 
 type IndexListProps = {
     ipca: number;
@@ -14,6 +14,15 @@ const IndexList: React.FC<IndexListProps> = (props) => {
     getIPCA(
       (data) => {
         props.setIpca(data.toFixed(2));
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+
+    getCDI(
+      (data) => {
+        props.setCdi(data.toFixed(2));
       },
       (error) => {
         console.log(error);
