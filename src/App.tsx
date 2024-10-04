@@ -1,3 +1,4 @@
+import ReactGA from 'react-ga4';
 import RegressiveTaxTable from './components/RegressiveTaxTable';
 import ScenarioSimulation from './components/ScenarioSimulation';
 import './App.css';
@@ -5,6 +6,13 @@ import './App.css';
 function App() {
   const cdi = 11.5;
   const ipca = 4.5;
+
+  ReactGA.initialize('G-PGDFZV1ZJR');
+  ReactGA.send({
+    hitType: 'pageview',
+    page: "/",
+    title: "Home",
+  });
 
   return (
     <div className="App">
