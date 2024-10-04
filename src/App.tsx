@@ -1,11 +1,13 @@
 import ReactGA from 'react-ga4';
 import RegressiveTaxTable from './components/RegressiveTaxTable';
 import ScenarioSimulation from './components/ScenarioSimulation';
+import IndexList from './components/IndexList';
 import './App.css';
+import { useEffect, useState } from 'react';
 
 function App() {
-  const cdi = 11.5;
-  const ipca = 4.5;
+  const [ipca, setIpca] = useState<number>(4.5);
+  const [cdi, setCdi] = useState<number>(11.5);
 
   ReactGA.initialize('G-PGDFZV1ZJR');
   ReactGA.send({
@@ -15,9 +17,12 @@ function App() {
   });
 
   return (
-    <div className="App">
+    <div className="App max-w-5xl mx-auto px-10">
       <h1 className="text-4xl">Simulação de Investimento em Renda Fixa</h1>
-      <RegressiveTaxTable/>
+      <div className="w-full grid grid-cols-1 lg:flex">
+        <RegressiveTaxTable/>
+        <IndexList ipca={ipca} setIpca={setIpca} cdi={cdi} setCdi={setCdi}/>
+      </div>
       <div className="w-full grid grid-cols-1 md:grid-cols-3 content-start">
         <ScenarioSimulation ipca={ipca} cdi={cdi} title="A"/>
         <ScenarioSimulation ipca={ipca} cdi={cdi} title="B"/>

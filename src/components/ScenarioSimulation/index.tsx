@@ -76,6 +76,8 @@ function calculateResults(data: ScenarioSimulationIn): ScenarioSimulationOut {
             totalYearlyPercentage = data.yieldValue;
     }
 
+    console.log(data);
+
     const monthlyYieldDecimal: number = yearlyPercentageToMonthlyDecimal(totalYearlyPercentage);
     const qtyMonths: number = monthDiff(new Date(), new Date(data.dueDate));
     const grossDecimal: number = Math.pow(1.0 + monthlyYieldDecimal, qtyMonths) - 1.0;
@@ -133,13 +135,13 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
             <h2 className="text-2xl">Cenário {props.title}</h2>
             <form className="w-full">
 
-                 <div className="lg:flex lg:items-center m-6">
-                    <div className="lg:w-2/3">
+                 <div className="lg:flex lg:items-center m-1">
+                    <div className="lg:w-1/2">
                         <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-investment">
-                            Valor Investido (R$)
+                            Investimento (R$)
                         </label>
                     </div>
-                    <div className="lg:w-1/3">
+                    <div className="lg:w-1/2">
                         <input
                             type="number"
                             min="0.00"
@@ -150,13 +152,13 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                     </div>
                 </div>
                
-                <div className="lg:flex lg:items-center m-6">
-                    <div className="lg:w-2/3">
+                <div className="lg:flex lg:items-center m-1">
+                    <div className="lg:w-1/2">
                         <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-index">
                             Índice
                         </label>
                     </div>
-                    <div className="lg:w-1/3">
+                    <div className="lg:w-1/2">
                         <select id="inline-index" onChange={e => setIndex(e.target.value)}>
                             <option value="ipca-plus">IPCA +</option>
                             <option value="prefixed">Prefixado</option>
@@ -166,13 +168,13 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                     </div>
                 </div>
 
-                <div className="lg:flex lg:items-center m-6">
-                    <div className="lg:w-2/3">
+                <div className="lg:flex lg:items-center m-1">
+                    <div className="lg:w-1/2">
                         <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-yield">
                             Rendimento Anual (%)
                         </label>
                     </div>
-                    <div className="lg:w-1/3">
+                    <div className="lg:w-1/2">
                         <input
                             type="number"
                             min="0.00"
@@ -180,17 +182,16 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                             className="w-full border-solid border-2 border-primary"
                             id="inline-yield"
                             onChange={e => setYieldValue(parseFloat(e.target.value) || 0.0)}/>
-
                     </div>
                 </div>
 
-                <div className="lg:flex lg:items-center m-6">
-                    <div className="lg:w-2/3">
+                <div className="lg:flex lg:items-center m-1">
+                    <div className="lg:w-1/2">
                         <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-due-date">
                             Data de Vencimento
                         </label>
                     </div>
-                    <div className="lg:w-1/3">
+                    <div className="lg:w-1/2">
                         <input
                             type="date"
                             className="w-full"
@@ -200,7 +201,7 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                     </div>
                 </div>
 
-                {/* <div className="lg:flex lg:items-center m-6">
+                {/* <div className="lg:flex lg:items-center m-1">
                     <div className="lg:w-2/3">
                         <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-yield-timing">
                             Pagamento dos Rendimentos
@@ -215,13 +216,13 @@ const ScenarioSimulation: React.FC<ScenarioSimulationProps> = (props) => {
                     </div>
                 </div>
  */}
-                <div className="lg:flex lg:items-center m-6">
-                    <div className="lg:w-2/3">
+                <div className="lg:flex lg:items-center m-1">
+                    <div className="lg:w-1/2">
                         <label className="block text-gray-500 font-bold lg:text-right mb-1 lg:mb-0 pr-4" htmlFor="inline-tax-type">
                             Imposto de Renda
                         </label>
                     </div>
-                    <div className="lg:w-1/3">
+                    <div className="lg:w-1/2">
                         <select id="inline-tax-type" onChange={e => setTaxType(e.target.value)}>
                             <option value="regressive">Regressivo</option>
                             <option value="exempt">Isento</option>
